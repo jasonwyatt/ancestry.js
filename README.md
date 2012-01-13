@@ -2,7 +2,7 @@
 
 Yes, ancestry.js is yet another microframework.
 
-Why? Mostly because I was unsatisfied by how most people handle inheritance in JavaScript.  Usually, people try to pass off a single `Object.create()` as a viable solution to inheritance. Unfortunately this tends to fail when you want multiple inheritance, or the ability to call a "superconstructor" within your class.
+Why? Because I was unsatisfied by how most people handle inheritance in JavaScript.  Usually, people try to pass off a single `Object.create()` as a viable solution to inheritance. Unfortunately this tends to fail when you want multiple inheritance, or the ability to call a "superconstructor" within your class.
 
 ## ancestry.js gives you these features, and only these features:
 
@@ -13,6 +13,36 @@ Why? Mostly because I was unsatisfied by how most people handle inheritance in J
 Multiple inheritance has its caveats though; one of which is a kind of confusion as to which super class should take precedence.  In ancestry.js, I want you to specify superclasses in increasing order of importance.  This means that `MyClass.superconstructor` refers to the *last* class listed in the parent class array.
 
 ## How To Use ancestry.js
+
+### Without a script loading solution
+
+Just add this to your page somewhere before where you'd like to use ancestry:
+
+```javascript
+<script src="path/to/ancestry.js" type="text/javascript"></script>
+```
+
+### AMD (require.js)
+
+With the AMD pattern, all you have to do is load Ancestry like this:
+
+```javascript
+require('path/to/ancestry', function(Ancestry){
+	// get crankin'
+});
+```
+
+### CommonJS (node)
+
+If you want to use ancestry.js within Node:
+
+```javascript
+var Ancestry = require('path/to/ancestry');
+
+// start working
+```
+
+### Example
 
 Assume we've included ancestry.js and a version of jQuery on the page:
 
