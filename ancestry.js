@@ -19,7 +19,7 @@
  * SOFTWARE.
  */
 
-(function(define, exports){
+(function(){
     var Ancestry = {
         _isArray: function(obj){
             return obj.constructor.toString().indexOf("Array") !== -1;
@@ -115,5 +115,5 @@
         window.Ancestry = Ancestry;
     }
 
-})(define, exports);
+})();
 
