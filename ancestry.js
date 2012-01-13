@@ -19,7 +19,7 @@
  * SOFTWARE.
  */
 
-(function(){
+(function(define, exports){
     var Ancestry = {
         _isArray: function(obj){
             return obj.constructor.toString().indexOf("Array") !== -1;
@@ -110,10 +110,10 @@
     if(typeof define !== 'undefined'){ // require/AMD exists.
         define([], Ancestry);
     } else if (typeof require !== 'undefined'){ // commonjs
-        var exports = Ancestry;
+        Ancestry._extend(exports, Ancestry);
     } else { // put in window scope
         window.Ancestry = Ancestry;
     }
 
-})();
+})(define, exports);
 
