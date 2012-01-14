@@ -22,7 +22,7 @@
 (function(){
     var Ancestry = {
         _isArray: function(obj){
-            return obj.constructor.toString().indexOf("Array") !== -1;
+            return Object.prototype.toString.call(obj) == '[object Array]';
         },
         
         _extend: function(destination, source){
