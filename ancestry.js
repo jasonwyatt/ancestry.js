@@ -18,18 +18,19 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-
-(function(){
+/*jslint unparam: true, browser: true */
+/*global define, require */
+(function (undefined) {
     var Ancestry = {
-        _isArray: function(obj){
-            return Object.prototype.toString.call(obj) == '[object Array]';
+        _isArray: function (obj) {
+            return Object.prototype.toString.call(obj) === '[object Array]';
         },
 
-        _extend: function(destination, source){
+        _extend: function (destination, source) {
             var i;
 
-            for(i in source){
-                if(source.hasOwnProperty(i)){
+            for (i in source) {
+                if (source.hasOwnProperty(i)) {
                     destination[i] = source[i];
                 }
             }
@@ -41,16 +42,15 @@
          * Causes ChildClass to inherit all of the methods from
          * parentClasses, then mixes in the prototype object.
          */
-        inherit: function(ChildClass, parentClasses, proto){
+        inherit: function (ChildClass, parentClasses, proto) {
             var resultPrototype = {},
-                i, len;
-            if(!Ancestry._isArray(parentClasses)){
+                len,
+                i;
+            if (!Ancestry._isArray(parentClasses)) {
                 parentClasses = [parentClasses];
             }
 
-
-
-            for(i = 0, len = parentClasses.length; i < len; i++){
+            for (i = 0, len = parentClasses.length; i < len; i++) {
                 Ancestry._extend(resultPrototype, parentClasses[i].prototype);
             }
             Ancestry._extend(resultPrototype, proto);
@@ -58,7 +58,7 @@
             resultPrototype.superclasses = parentClasses;
 
             // the super constructor is the constructor of the last element in parentClasses.
-            ChildClass.superconstructor = parentClasses[parentClasses.length-1];
+            ChildClass.superconstructor = parentClasses[parentClasses.length - 1];
             ChildClass.superclasses = parentClasses;
             ChildClass.prototype = resultPrototype;
         },
@@ -67,7 +67,7 @@
          * Determines whether or not the child class is a child of
          * the parentCandidate.
          */
-        instanceOf: function(child, parentCandidate){
+        instanceOf: function (child, parentCandidate) {
             var superclasses = Ancestry._extend([], child.superclasses),
                 superclass,
                 parents;
@@ -76,7 +76,7 @@
                 return true;
             }
 
-            if (typeof superclasses === 'undefined') {
+            if (superclasses === undefined) {
                 return false;
             }
 
@@ -93,9 +93,9 @@
 
                 parents = superclass.superclasses;
 
-                if (typeof parents !== 'undefined') {
+                if (parents === undefined) {
                     if (!Ancestry._isArray(parents)) {
-                        parents = [parents]
+                        parents = [parents];
                     }
 
                     superclasses = superclasses.concat(parents);
@@ -106,13 +106,12 @@
         }
     };
 
-    if(typeof define !== 'undefined'){ // require/AMD exists.
+    if (typeof define === 'function') { // require/AMD exists.
         define([], Ancestry);
-    } else if (typeof require !== 'undefined'){ // commonjs
+    } else if (typeof require === 'function') { // commonjs
         Ancestry._extend(exports, Ancestry);
     } else { // put in window scope
         window.Ancestry = Ancestry;
     }
 
-})();
-
+}());
