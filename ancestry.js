@@ -26,7 +26,7 @@
         },
 
         _extend: function(destination, source){
-            var i, len;
+            var i;
 
             for(i in source){
                 if(source.hasOwnProperty(i)){
@@ -42,15 +42,15 @@
          * parentClasses, then mixes in the prototype object.
          */
         inherit: function(ChildClass, parentClasses, proto){
+            var resultPrototype = {},
+                i, len;
             if(!Ancestry._isArray(parentClasses)){
                 parentClasses = [parentClasses];
             }
 
-            var i = 0,
-                len = parentClasses.length,
-                resultPrototype = {};
 
-            for(; i < len; i++){
+
+            for(i = 0, len = parentClasses.length; i < len; i++){
                 Ancestry._extend(resultPrototype, parentClasses[i].prototype);
             }
             Ancestry._extend(resultPrototype, proto);
@@ -70,8 +70,7 @@
         instanceOf: function(child, parentCandidate){
             var superclasses = Ancestry._extend([], child.superclasses),
                 superclass,
-                children,
-                i, len;
+                parents;
 
             if (parentCandidate === Object) {
                 return true;
